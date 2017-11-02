@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/css/style.css">
+    <title>Wedding Planner</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>Welcome To The Wedding Planner</h3>
+            </div>
+            <div class="col-md-3">
+                <a href="/Logout">Log Out</a>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Wedding</h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>Date</h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>Guests</h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>Action</h4>
+                </div>
+            </div>
+
+            @foreach(var wedding in ViewBag.weddings)
+            {
+                int weddingid = wedding.id;
+                string stringid = weddingid.ToString();
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/Wedding/@stringid">@wedding.wedderOne & @wedding.wedderTwo</a>
+                    </div>
+                    <div class="col-md-3">
+                        <p>@wedding.date</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>@wedding.rsvps.Count</p>
+                    </div>
+                    <div class="col-md-3">
+                        @{
+                            @if ((int)wedding.creator_id == (int)@ViewBag.currentUserId)
+                            {
+                                <a href="/Delete/@wedding.id">Delete</a>
+                            }
+                            else
+                            {
+                                {
+                                    bool guest = false;
+
+                                    @foreach (var rsvp in wedding.rsvps)
+                                    {
+                                        @if((int)rsvp.users_id == (int)@ViewBag.currentUserId)
+                                        {
+                                            guest = true;
+                                        }
+                                    }
+
+                                    @if(guest == true)
+                                    {
+                                        <a href="/UNRSVP/@wedding.id">UNRSVP</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/RSVP/@wedding.id">RSVP</a>
+                                    }
+                                }
+                            
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <a href="/NewWedding"><button class="btn-success">New Wedding</button></a>
+    </div>
+</body>
+</html>

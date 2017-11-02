@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wedding Planner</title>
+</head>
+<body>
+    <h1>Plan Your Wedding</h1>
+    @model WeddingPlanner.Models.WeddingViewModel
+    <form asp-controller="Main" asp-action="Create" method="POST">
+        <span asp-validation-for="wedderOne"></span>
+        <label asp-for="wedderOne">Wedder One:</label>
+        <input asp-for="wedderOne" class="form-control"/>
+        <span asp-validation-for="wedderTwo"></span>
+        <label asp-for="wedderTwo">Wedder Two:</label>
+        <input asp-for="wedderTwo" class="form-control"/>
+        <span asp-validation-for="date"></span>
+        <label asp-for="date">Date:</label>
+        <input type="datetime-local" asp-for="date" class="form-control"/>
+        <span asp-validation-for="address"></span>
+        <label asp-for="address">Address</label>
+        <input asp-for="address" class="form-control"/>
+        <input type="submit" value="Create" class="btn-primary">
+    </form>
+</body>
+</html>
