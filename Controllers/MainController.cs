@@ -137,8 +137,9 @@ namespace WeddingPlanner.Controllers
             User user = _context.users.SingleOrDefault(item => item.id == (int)HttpContext.Session.GetInt32("user_id"));
             Wedding wedding = _context.weddings.SingleOrDefault(item => item.id == id);
             RSVP rsvp = _context.rsvps.Where(item => item.users_id == user.id).Where(item => item.weddings_id == wedding.id).SingleOrDefault();
-
+            Console.WriteLine(rsvp.users_id);
             _context.rsvps.Remove(rsvp);
+            _context.SaveChanges();
             return RedirectToAction("Dashboard");
         }
     }
